@@ -3,34 +3,52 @@ import org.lwjgl.Sys;
 
 
 public class FPSCounter {
-	private long fps, counter, lastCount, lastFrame;
+	private static boolean started = false;
+	private static long fps, counter, lastTick, lastCount;
+	private static int delta;
 	
-	public FPSCounter() {
-		lastCount = getTime();
-		getDelta();
-	}
-	
-	public void tick() {
+	/**
+	 * Call once per frame at the end of the main loop. Also calling once before starting the main loop is recommended.
+	 */
+	public static void tick() {
+		
+		if (!started) {
+			started = true;
+			tick();
+		}
+		
 		if (getTime() - lastCount > 1000) {
 			fps = counter;
 			counter = 0; // reset the FPS counter
 			lastCount += 1000; // add one second
 		}
 		counter++;
+		
+		delta = (int) (getTime()-lastTick);
+		lastTick = getTime();
 	}
 	
-	public long getFPS() {
+	/**
+	 * 
+	 * @return current fps
+	 */
+	public static long getFPS() {
 		return fps;
 	}
 	
-	private long getTime() {
+	/**
+	 * 
+	 * @return timecode in milliseconds
+	 */
+	private static long getTime() {
 		return (Sys.getTime() * 1000) / Sys.getTimerResolution();
 	}
 	
-	public int getDelta() {
-		long time = getTime();
-		int delta = (int) (time - lastFrame);
-		lastFrame = time;
+	/**
+	 * 
+	 * @return delta for the last frame
+	 */
+	public static int getDelta() {
 		return delta;
 	}
 	

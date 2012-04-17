@@ -9,11 +9,11 @@ public class Main {
 	 */
 	public static void main(String[] args) throws InterruptedException {
 		Window w = new Window(640,480);
-		FPSCounter fps = new FPSCounter();
+		FPSCounter.tick();
 		while (!w.shouldClose()) {
-			System.out.print(".");
-			fps.tick();
-			w.setTitle("FPS: "+fps.getFPS()+ " Delta: "+fps.getDelta());
+			w.setTitle("FPS: "+FPSCounter.getFPS()+ " Delta: "+FPSCounter.getDelta());
+			Thread.sleep(500);
+			FPSCounter.tick();
 		}
 		w.close();
 	}

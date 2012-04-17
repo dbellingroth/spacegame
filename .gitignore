@@ -1,2 +1,4 @@
 *.class
 *.DS_Store
+.bam/0000000000000000
+bin/*
