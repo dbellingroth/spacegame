@@ -7,7 +7,7 @@ import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.PixelFormat;
 
-public class Window {
+public class Screen {
 	
 	
 	protected int width, height;
@@ -15,7 +15,7 @@ public class Window {
 	
 	
 	
-	public Window(int width, int height) {
+	public Screen(int width, int height) {
 		
 		try {
 			Display.setDisplayMode( new DisplayMode( 640, 480 ));

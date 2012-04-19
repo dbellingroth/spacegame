@@ -1,4 +1,4 @@
-import graphics.Window;
+import graphics.Screen;
 
 
 public class Main {
@@ -9,7 +9,7 @@ public class Main {
 	 */
 	public static void main(String[] args) throws InterruptedException {
 		
-		Window w = new Window( 640,480 );
+		Screen w = new Screen( 640,480 );
 		FPSCounter.tick();
 		
 		while (!w.shouldClose()) {
