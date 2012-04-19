@@ -20,7 +20,7 @@ import org.lwjgl.opengl.GL11;
 
 public class Texture {
 	private static int id_counter = 1;
-	private int id;
+	private int id, texture_edge;
 
 	public void bind() {
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, id);
@@ -30,12 +30,20 @@ public class Texture {
 		
 		id = id_counter++;
 		
-		ByteBuffer buf = convertImageData(image);
+		texture_edge = next_powerOfTwo_square(image.getWidth(), image.getHeight());
+		
+		
+		
+		BufferedImage texture_image = new BufferedImage(texture_edge, texture_edge,
+				BufferedImage.TYPE_INT_ARGB);
+		texture_image.getGraphics().drawImage(image, 0, 0, null);
+		
+		ByteBuffer buffer = convertImageData(texture_image);
 		
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, id);
 		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
 		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
-		GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, image.getWidth(), image.getHeight(), 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, buf);
+		GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, texture_edge, texture_edge, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, buffer);
 	}
 	
 	
@@ -66,6 +74,17 @@ public class Texture {
 		imageBuffer.flip();
 
 		return imageBuffer;
+	}
+	
+	public static int next_powerOfTwo_square(int width, int height) {
+
+		int longest_edge = width > height ? width : height;
+		int sprite_edge = (int) Math.pow(2, Math.round((Math.log(longest_edge) / Math.log(2)) + 0.499999));
+		return sprite_edge;
+	}
+	
+	public int getEdgeLength() {
+		return texture_edge;
 	}
 	
 }
