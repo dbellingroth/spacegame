@@ -14,6 +14,7 @@ public class FPSCounter {
 		
 		if (!started) {
 			started = true;
+			lastCount = getTime();
 			tick();
 		}
 		

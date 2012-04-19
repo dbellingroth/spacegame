@@ -12,7 +12,6 @@ public class Main {
 		FPSCounter.tick();
 		while (!w.shouldClose()) {
 			w.setTitle("FPS: "+FPSCounter.getFPS()+ " Delta: "+FPSCounter.getDelta());
-			Thread.sleep(500);
 			FPSCounter.tick();
 		}
 		w.close();
