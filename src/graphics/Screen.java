@@ -96,7 +96,7 @@ public class Screen {
 	
 	
 	
-	public boolean shouldClose(){
+	public boolean shallClose(){
 		
 		return Display.isCloseRequested();
 	}

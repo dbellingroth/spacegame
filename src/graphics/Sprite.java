@@ -10,9 +10,12 @@ import org.lwjgl.opengl.GL11;
 
 public class Sprite extends Transformable implements Drawable{
 	
+	
 	private Texture texture;
 	private int width, height;
 	private float widthFactor, heightFactor;
+	
+	
 	
 	public Sprite( String imagePath ) {
 		
@@ -32,7 +35,9 @@ public class Sprite extends Transformable implements Drawable{
 		}
 	}
 
-	@Override
+
+
+	
 	public void draw() {
 		
 		texture.bind();
@@ -54,13 +59,19 @@ public class Sprite extends Transformable implements Drawable{
 		GL11.glPopMatrix();
 	}
 
+	
+	
+	
 	public boolean getVisibility() {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
+	
+	
+	
 	public void setVisibility(boolean visible) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	
