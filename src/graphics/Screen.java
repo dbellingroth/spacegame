@@ -1,11 +1,16 @@
 package graphics;
 
 
+import game.FPSCounter;
 import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.PixelFormat;
+
+
 
 public class Screen {
 	
@@ -23,7 +28,7 @@ public class Screen {
 				     8,   // alpha
 				    24,   // depth buffer
 				     1,   // stencil buffer
-				     4) ;
+				     0) ;
 			Display.create( pix );
 			setResolution( width, height );
 			
@@ -109,4 +114,48 @@ public class Screen {
 		Display.destroy();
 	}
 
+	
+	
+	public void handleInput( InputReceiver addressee ) {
+		
+		while ( Keyboard.next() ) {
+			
+			if ( Keyboard.getEventKeyState() )
+				addressee.keyPressed( Keyboard.getEventKey() );
+			else
+				addressee.keyReleased( Keyboard.getEventKey() );
+		}
+
+		while ( Mouse.next() ) {
+			
+			if ( Mouse.getEventButtonState() && Mouse.getEventButton() >= 0 )
+				addressee.mousePressed( Mouse.getEventButton() );
+			
+			else if ( Mouse.getEventButton() >= 0 ) {
+				addressee.mouseReleased( Mouse.getEventButton() );
+			}
+			
+			if ( Mouse.hasWheel() ) {
+				
+				addressee.mouseWheel( Mouse.getDWheel() );
+			}
+		}	
+	}
+	
+	
+	
+	public void render() {
+		
+		FPSCounter.tick();
+		setTitle( "FPS: "  +FPSCounter.getFPS() + " Delta: " + FPSCounter.getDelta() );
+		
+		Display.update( );	//swap buffers
+		Display.sync( 120 );	// FPS begrenzen
+		
+		// Clear screen
+		GL11.glClear( GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT );
+		GL11.glMatrixMode( GL11.GL_MODELVIEW );
+		GL11.glLoadIdentity();
+
+	}
 }
