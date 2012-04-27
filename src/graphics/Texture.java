@@ -65,7 +65,7 @@ public class Texture {
 		ColorModel glAlphaColorModel = new ComponentColorModel(ColorSpace.getInstance( ColorSpace.CS_sRGB), new int[] { 8, 8, 8, 8 }, true, false, Transparency.TRANSLUCENT, DataBuffer.TYPE_BYTE );
 
 		raster = Raster.createInterleavedRaster( DataBuffer.TYPE_BYTE, bufferedImage.getWidth(), bufferedImage.getHeight(), 4, null );
-		texImage = new BufferedImage( glAlphaColorModel, raster, true, new Hashtable() );
+		texImage = new BufferedImage( glAlphaColorModel, raster, true, new Hashtable<Object, Object>() );
 
 		// copy the source image into the produced image
 		Graphics g = texImage.getGraphics();

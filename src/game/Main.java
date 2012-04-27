@@ -1,6 +1,4 @@
 package game;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL11;
 
 import graphics.Screen;
 import graphics.Sprite;

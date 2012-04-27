@@ -1,4 +1,4 @@
-package graphics;
+package game;
 
 public interface InputReceiver {
 

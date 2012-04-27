@@ -2,6 +2,8 @@ package graphics;
 
 
 import game.FPSCounter;
+import game.InputReceiver;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -114,30 +116,33 @@ public class Screen {
 		Display.destroy();
 	}
 
-	
-	
-	public void handleInput( InputReceiver addressee ) {
+	/**
+	 * Sollten wir vielleicht anders machen. Warum muss der Input im Screen behandelt werden? Warum nicht direkt in einer eigenen Klasse?
+	 * @param receiver
+	 */
+	@Deprecated
+	public void handleInput( InputReceiver receiver ) {
 		
 		while ( Keyboard.next() ) {
 			
 			if ( Keyboard.getEventKeyState() )
-				addressee.keyPressed( Keyboard.getEventKey() );
+				receiver.keyPressed( Keyboard.getEventKey() );
 			else
-				addressee.keyReleased( Keyboard.getEventKey() );
+				receiver.keyReleased( Keyboard.getEventKey() );
 		}
 
 		while ( Mouse.next() ) {
 			
 			if ( Mouse.getEventButtonState() && Mouse.getEventButton() >= 0 )
-				addressee.mousePressed( Mouse.getEventButton() );
+				receiver.mousePressed( Mouse.getEventButton() );
 			
 			else if ( Mouse.getEventButton() >= 0 ) {
-				addressee.mouseReleased( Mouse.getEventButton() );
+				receiver.mouseReleased( Mouse.getEventButton() );
 			}
 			
 			if ( Mouse.hasWheel() ) {
 				
-				addressee.mouseWheel( Mouse.getDWheel() );
+				receiver.mouseWheel( Mouse.getDWheel() );
 			}
 		}	
 	}
